@@ -5,11 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/style.css" />
+    <style>
+      #third{
+        display: inline;
+      }
+    </style>
   </head>
   <body>
-    <canvas id="canvas" width="850" height="600">Canvas not supported</canvas>
-
+    <canvas id="canvas" width="600" height="400">Canvas not supported</canvas>
+<ul>
+   <li><p>화면1: 게임시작 버튼을 누르면 화면2로 넘어간다.</p></li> 
+   <li><p>화면2: 게임시작 버튼을 누르면 화면3으로 넘어간다.</p></li> 
+   <li> <p  id="third">
+    화면3:<ol>
+      <li>Jump 버튼을 누르면 캐릭터가 점프한다.</li>
+      <li>Slide 버튼을 누르면 화면1로 넘어간다.</li>
+      <li>파랑색 오브젝트와 캐릭터가 닿으면 우측 상단의 포인트가 올라가고 체력바가 늘어난다.</li>
+      <li>은색 오브젝트와 캐릭터가 닿으면 상단의 코인 포인트가 올라간다.</li>
+      <li>녹색 오브젝트와 캐릭터가 닿으면 체력바가 줄어든다.</li>
+     </ol>
+   </p> </li> 
+   
+  </ul>
     <script>
       var canvas = document.getElementById('canvas'),
     context = canvas.getContext('2d');
@@ -684,7 +701,7 @@ function drawfood(food){
     
     function drawcoin(coin){
         context.beginPath();
-        context.fillStyle='#020202';
+        context.fillStyle='#d1d1d1';
         if(coin!=null){
         context.arc(coin.x, coin.y, 8, Math.PI , Math.PI*3/1 );
         context.fill();
