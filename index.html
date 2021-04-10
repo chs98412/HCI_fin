@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
+        #canvas{
+            margin: 0;
+            padding: 0;
+        }
       #third{
         display: inline;
       }
@@ -45,6 +49,7 @@
     index=0;
     index2=0;
     foods=[{x:400,y:230}];
+    coins2=[{x:450,y:210}];
     coins={};
     key={right:false};
     life=400;
@@ -55,42 +60,42 @@
     var Point = function (x, y) {
         this.x = x;
         this.y = y;
-     };
-     
-     var Polygon = function (color,context) {
+    };
+    
+    var Polygon = function (color,context) {
         
         this.color = color;
         this.context=context;
-     };
-     
-     Polygon.prototype = {
+    };
+    
+    Polygon.prototype = {
         Drawpoly: function (x,y,rad,sides) {
-           var points = [],
-               startAngle= Math.PI/sides;
-               angle = startAngle || 0;
-     
-           for (var i=0; i < sides; ++i) {
+        var points = [],
+        startAngle= Math.PI/sides;
+        angle = startAngle || 0;
+
+        for (var i=0; i < sides; ++i) {
               points.push(new Point(x + rad * Math.sin(angle),y - rad * Math.cos(angle)));
-              angle += 2*Math.PI/sides;
-           }
-           
-           this.context.closePath();
-           this.context.save();
-           this.context.beginPath();
-     
-           this.context.moveTo(points[0].x, points[0].y);
-     
-           for (var i=1; i < sides; ++i) {
-              context.lineTo(points[i].x, points[i].y);
-           }
-           this.context.fillStyle = this.color;
-           this.context.fill();
-           this.context.restore();
+        angle += 2*Math.PI/sides;
         }
-     
-       
-     };
- 
+        
+        this.context.closePath();
+        this.context.save();
+        this.context.beginPath();
+    
+        this.context.moveTo(points[0].x, points[0].y);
+    
+        for (var i=1; i < sides; ++i) {
+            context.lineTo(points[i].x, points[i].y);
+        }
+        this.context.fillStyle = this.color;
+        this.context.fill();
+        this.context.restore();
+        }
+    
+    
+    };
+
 
     function Drawback(color,fill,context){
         //배경
@@ -213,8 +218,8 @@ bargray.circle(239,47 ,10);
     navy=new Drawback("#4d51fa",0,context);
     cyon = new Drawback('#12afb9',1,context);
 
-    white = new Drawback('#eeece0',3,context);
-    gray= new Drawback('#d7d5d5',3,context);
+    white = new Drawback('#eeece0',2,context);
+    gray= new Drawback('#d7d5d5',2,context);
     green = new Drawback('#09c813',1,context);
     dkbrown = new Drawback('#712e00',1,context);
     ck = new Drawback('#eca009',1,context);
@@ -231,21 +236,27 @@ redpoly=new Polygon("#ef4b00",context);
 cyonpoly=new Polygon("#28e4de",context);
 bluepoly=new Polygon("#6db1ff",context);
 brownpoly =new Polygon("#ae2f0a",context);
+
 viopoly =new Polygon("#b449f8",context);
+
 pinkpoly =new Polygon("#ef26d8",context);
 
 
-brown = new Drawback('#c3580d',3,context);
+brown = new Drawback('#c3580d',2,context);
 pet=new Polygon("#662700",context);
 gbadg=new Polygon("#c5c100",context);
 sbadg=new Polygon("#b9b6b6",context);
 massag=new Polygon("white",context);
 gift=new Polygon("#dc1414",context);
+
+
+
+
 }
-    image3rd = new Image();
-    image3rd.src='1st.jpeg';
-    image3rd.onload= (e)=>{
-        context.drawImage(image3rd,25, 25, 500,300);
+    image1st = new Image();
+    image1st.src='img/1st.jpeg';
+    image1st.onload= (e)=>{
+        context.drawImage(image1st,25, 25, 500,300);
         
     UpBar();
 
@@ -320,11 +331,12 @@ white.circle(410,173,3);
 white.circle(410,180,3);
 
 for(i=0;i<4;i++)red.rect(380,160+i*8,5,4);
-
-context.strokeStyle='#dc1414';
+ 
+context.strokeStyle='#dc1414'; 
 context.arc(410,154,7,Math.PI*2,Math.PI);
 context.stroke();
-context.beginPath();
+
+context. beginPath();
 context.strokeStyle='white';
 context.moveTo(398,140);
 context.bezierCurveTo(410, 139, 408, 135, 413, 134);
@@ -357,6 +369,25 @@ gbadg.Drawpoly(130,165,7,5);
 for(i=0;i<4;i++)sbadg.Drawpoly(130,195+i*30,7,5);
 
 for(i=0;i<3;i++)massag.Drawpoly(240+i*20,310,7,5+i);
+context.strokeStlye="#020202";
+context.beginPath();
+context.moveTo(250,300);
+context.lineTo(250, 323);
+context.stroke();
+
+context.beginPath();
+context.moveTo(270,300);
+context.lineTo(270, 323);
+context.stroke();
+
+context.beginPath();
+context.moveTo(230,300);
+context.lineTo(230, 323);
+context.stroke();
+
+
+
+
 
 
 for(i=0;i<5;i++){
@@ -392,23 +423,26 @@ black.text("네이마르        680",170,288);
 }
 
 
-canvas.onmousedown = function (i) {
-    var loc = windowToCanvas(i.clientX, i.clientY);
- 
-    i.preventDefault(); 
+canvas.onmousedown = function (e) {
+    var loc = windowToCanvas(e.clientX, e.clientY);
+
+    e.preventDefault(); 
+
     context.beginPath();
 
     context.arc(370, 290, 10, Math.PI,Math.PI*3);
     context.arc(440,290,10, Math.PI,Math.PI*3);
     context.rect(370,280,70,20);
+
+
     if (context.isPointInPath(loc.x, loc.y)) {
         console.log("1번화면");
 
         if(mode==1){
-            image3rd = new Image();
-            image3rd.src='1st.jpeg';
-            image3rd.onload= (e)=>{
-                context.drawImage(image3rd,25, 25, 500,300);
+            image2back = new Image();
+            image2back.src='img/1st.jpeg';
+            image2back.onload= (e)=>{
+                context.drawImage(image2back,25, 25, 500,300);
                 
             UpBar();
         
@@ -481,19 +515,27 @@ canvas.onmousedown = function (i) {
             
             
                 gray.circle(250, 75, 9);
-            
+                black.line(244,68,256,82,1);
+                black.line(256,68,244,82,1);
+
+                context.beginPath();
+context.strokeStyle='#0032b7';
+context.moveTo(330,111);
+context.bezierCurveTo(330, 105, 337, 105, 338, 111);
+context.stroke();
+
             redpoly.Drawpoly(210,193,10,6);
             bluepoly.Drawpoly(210,240,10,5);
             
-            image1st = new Image();
-                image1st.src='아이콘.png';
-                image1st.onload= (e)=>{
-                    context.drawImage(image1st,138,168,50,50);
+         
+                image2nd = new Image();
+                image2nd.src='img/아이콘.png';
+                image2nd.onload= (e)=>{
+                    context.drawImage(image2nd,138,168,50,50);
                     
                 }
             
             pinkpoly.Drawpoly(162,240,10,5);
-            
             cyonpoly.Drawpoly(116,193,10,5);
             
             viopoly.Drawpoly(116,240,10,5);
@@ -501,69 +543,72 @@ canvas.onmousedown = function (i) {
             
             redpoly.Drawpoly(210,120,10,8);
             star.Drawpoly(162,120,10,8)
+
             viopoly.Drawpoly(116,120,10,8);
             
             redpoly.Drawpoly(335,120,10,8);
             }}
         }
         
-     }
-     context.beginPath();
-        
-        context.arc(330, 265, 16, Math.PI,Math.PI*3);
-        context.arc(430,265, 16, Math.PI,Math.PI*3);
-        context.rect(330, 265-16,100,32);
-        if (context.isPointInPath(loc.x, loc.y)) {
-            console.log("2번화면");
-            if(mode==2){
-                mode=3;
-                setInterval(function(){
-                    if(count==100){             
-                        count=0;
-                        if(index<6)
-                        index+=1;             
-                        foods[foods.length]={x:400,y:230};
-                     
-                    }
-                    if(count2==700){        
-                        count2=0;
-                       
-                        coins={x:480,y:230};
-                     
-                    }
-                 
-            
-                        count+=1
-                        count2+=1;    
-                 drawback2();
-                    update();
-                   },10)
-                
-            }
-        }
+    }
+    
+    context.beginPath();
+    context.arc(330, 265, 16, Math.PI,Math.PI*3);
+    context.arc(430,265, 16, Math.PI,Math.PI*3);
+    context.rect(330, 265-16,100,32);
+    if (context.isPointInPath(loc.x, loc.y)) {
+        console.log("2번화면");
+        if(mode==2){
+            mode=3;
+            setInterval(function(){
+                if(count==100){             
+                    count=0;
+                    if(index<6)
+                    index+=1;             
+                    foods[foods.length]={x:400,y:230};
 
-            context.beginPath();
-            context.arc(100, 300, 20, Math.PI , Math.PI*3/1 );
-            if (context.isPointInPath(loc.x, loc.y)) {
+                    if(index2<3)
+                    index2+=1;             
+                    coins2[coins2.length]={x:450,y:210};
+                    
+                }
+                if(count2==500){        
+                    
+                    coins={x:480,y:230};
+                    
+                    count2=0;
+                    
+                }
+                
+                
+                count+=1
+                count2+=1;    
+                drawback();
+                update();
+            },10)
+            
+        }
+    }
+    
+    context.beginPath();
+    context.arc(100, 300, 20, Math.PI , Math.PI*3/1 );
+    if (context.isPointInPath(loc.x, loc.y)) {
                 if(mode==3)
                     if(jump==0)
                         jump=1;
                 
              }
-            context.beginPath();
-            context.arc(450, 300, 20, Math.PI , Math.PI*3/1 );
-            if (context.isPointInPath(loc.x, loc.y)) {
+    
+    context.beginPath();
+    context.arc(450, 300, 20, Math.PI , Math.PI*3/1 );
+    if (context.isPointInPath(loc.x, loc.y)) {
                 if(mode==3){
                     mode=1;
                     location.reload(true);}
                     console.log("뒤로가기");
 
                 }
-                
-             
-            
-         
-            
+
 };
 
 function windowToCanvas(x, y) { //실좌표계산
@@ -574,13 +619,15 @@ function windowToCanvas(x, y) { //실좌표계산
  }
 
 
- function drawback2(){
+ function drawback(){
     //배경
+  
     image3rd = new Image();
-image3rd.src='3rd.jpeg';
+image3rd.src='img/back.png';
 image3rd.onload= (e)=>{
-    context.drawImage(image3rd,25, 25, 500,300);
-    
+    for(i=0;i<5;i++){
+    for(j=0;j<4;j++)context.drawImage(image3rd,25+i*100, 25+j*75, 100,75);
+    }
     white.circle(500, 45, 10);
     gray.line(495,40,495,50,4); 
     gray.line(505,40,505,50,4); 
@@ -611,16 +658,27 @@ context.moveTo(50,70);
 context.lineTo(50+life,70);
 context.stroke();
 
+context.strokeStyle='#868686';
+context.beginPath();
+context.lineWidth=2;
+context.moveTo(50,90);
+context.lineTo(120,90);
+context.stroke();
+gold.circle(120, 90, 2 );
 
 
 gold.circle(40, 70, 10 );
 red.circle(40, 70, 5 );
+black.circle(40,242,5);
+brown.circle(40,250,7);
+black.circle(38,248,1);
+black.circle(42,248,1);
   
 //바닥
 context.beginPath();
 context.lineWidth=6;
 context.strokeStyle='#a6a4a4';
-context.strokeRect(25, 275, 500, 50);
+context.strokeRect(28, 275, 494, 50);
 context.stroke();
 
 context.lineWidth=4;
@@ -662,9 +720,10 @@ context.fillText("보물",300,290);
 drawplayer();
 drawouch();
 drawBttn();
-
-for(i=0;i<=index;i++)drawfood(foods[i]);
 drawcoin(coins);
+for(i=0;i<=index;i++)drawfood(foods[i]);
+for(i=0;i<=index2;i++)drawcoins2(coins2[i]);
+
 
    
 }}
@@ -698,8 +757,32 @@ function drawfood(food){
     }
 
     }}
+    function drawcoins2(coin2){
+    context.beginPath();
+    context.fillStyle='#d2d927';
+    if(coin2!=null){
+    context.arc(coin2.x, coin2.y, 8, Math.PI , Math.PI*3/1 );
+    context.fill();
+    if(coin2.x> 33 ){
+        coin2.x-=1;
+    }
+    else if(coin2.x==33){
+        coins2.splice(0,1);
+    }
+     
+    if(coin2.x<player.x+player.bodywidth && coin2.x>player.x-player.bodywidth && coin2.y>player.y+player.rad && coin2.y<player.y+player.rad+player.bodyheight)
+    {
+        point+=1000;
+             coinpoint+=100;
+             console.log(coinpoint);
+        coins2.splice(i,1);
+    }
+
+    }}
     
     function drawcoin(coin){
+        
+
         context.beginPath();
         context.fillStyle='#d1d1d1';
         if(coin!=null){
@@ -707,8 +790,11 @@ function drawfood(food){
         context.fill();
         if(coin.x> 33 ){
             coin.x-=1;
+            
         }
         else if(coin.x==33){
+            console.log("없어!1");
+
             coins=null;
         }
          
@@ -716,11 +802,13 @@ function drawfood(food){
         {
              point+=1000;
              coinpoint+=10;
-             console.log(coinpoint);
+             console.log("없어!2");
             coins=null;
         }
     
-        }}
+        }
+        else if(coin==null)console.log("없어!");
+    }
     //캐릭터
     function drawplayer(){
         context.lineWidth=2;
@@ -783,6 +871,17 @@ function drawfood(food){
     context.beginPath();
     context.arc(player.x, player.y+10, player.rad-15, Math.PI/3, Math.PI*3/2);
     context.stroke(); 
+
+    context.beginPath();
+context.strokeStyle='white';
+context.moveTo(player.x-18,player.y-10);
+context.bezierCurveTo(player.x-16, player.y-8, player.x-14, player.y-8, player.x-2, player.y-16);
+context.stroke();
+
+context.beginPath();
+context.moveTo(player.x-2,player.y-10);
+context.bezierCurveTo(player.x-18, player.y-8, player.x+2, player.y-8, player.x+14, player.y-16);
+context.stroke();
 
 
     }
@@ -853,3 +952,4 @@ if(jump==2){
     </script>
   </body>
 </html>
+
